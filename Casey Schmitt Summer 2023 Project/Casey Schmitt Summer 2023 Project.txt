@@ -1,0 +1,19 @@
+Casey Schmitt Summer 2023 Project
+
+June 2nd 2023
+Pitch-by-Pitch Visualization: Create an interactive display that allows users to step through each at-bat pitch by pitch. Show the pitch location, type, and outcome (swing and miss, foul ball, hit). Use visual cues like color-coding or icons to represent different outcomes.
+
+June 9th 2023
+Swing Analysis: Explore the player's swing tendencies and outcomes. Show the percentage of swings taken by pitch location (inside, outside, high, low) using a heatmap or grouped bar chart. Additionally, analyze the outcomes of swings, such as contact rate, swinging strike rate, or foul ball rate.
+
+Pitch Type Analysis: Analyze the frequency of different pitch types faced by the player. Create a bar chart or pie chart showing the distribution of pitch types (e.g., fastball, curveball, slider) they have encountered. This can give insights into the player's ability to handle specific pitches.
+
+Pitch Velocity Trends: Visualize the player's performance against different pitch velocities over time. Use a line chart to show how their batting average or slugging percentage varies based on the pitch release speed. This can help identify the player's strengths against certain velocity ranges.
+
+At-Bat Outcome Summary: Provide a summary of the player's at-bat outcomes, including events like hits, walks, strikeouts, and home runs. Use a stacked bar chart or a data table to display the frequencies and percentages of each outcome.
+
+Plate Discipline Metrics: Calculate plate discipline metrics such as chase rate (swings at pitches outside the strike zone), contact rate, or walk rate. Display these metrics as a radar chart or side-by-side bar charts to visualize the player's approach at the plate.
+
+Situational Performance: Analyze the player's performance in different game situations, such as bases empty, runners in scoring position, or with two outs. Show statistics like batting average, on-base percentage, or slugging percentage in these specific scenarios using bar charts or grouped bar charts.
+
+Game Logs: Present a log of the player's at-bats, including key details such as the game date, opposing pitcher, pitch type faced, and outcome. This can be displayed as a table or a timeline of at-bats.

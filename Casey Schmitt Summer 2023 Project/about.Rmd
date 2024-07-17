@@ -1,0 +1,18 @@
+## Author
+---
+- **Name:** "Nikhil Sivakumar"
+- **Email:** "nsiva3@illinois.edu"
+---
+
+## Purpose
+
+- This is a summer project I made that keeps track of Casey Schmitt's batting stats. Schmitt is currently a rookie 3B for the San Francisco Giants that got the call up this season. He had a very hot start that gave inspiration for this project that I started in early May. The stats will get updated and stop around the end of September when the 2023 regular will soon end.
+
+## Data
+- This application has data from the baseballr package. Baseballr is a package written for R
+focused on baseball analytics and has data collected from other baseball databses such as FanGraphs,
+Baseball-Reference, and baseballsavant.
+
+## Reference
+- [Baseballr packages github](https://github.com/billpetti/baseballr/tree/development_branch)
+- [Casey Schmitt Stats](https://baseballsavant.mlb.com/savant-player/casey-schmitt-669477)
