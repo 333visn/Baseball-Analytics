@@ -1,0 +1,20 @@
+## Author
+---
+- **Name:** "Nikhil Sivakumar"
+- **Email:** "nsiva3@illinois.edu"
+---
+
+## Purpose
+
+- This application keeps track of the release speed of Logan Webb, a starting pitcher for the MLB club San Francisco Giants. The app allows user to see how his release speeds on pitches fare, with a variance in different variables such as pitch type, batting side (right-handed vs left-handed), outs when pitching, the inning he's pitching in, etc. The app is trying to find trends with Webb's release speed in certain circumstances and see if certain scenarios have him throwing a faster or slower pitch. This app also gives a general visualization of Logan Webb's pitch selection at different stages in a ballgame.
+
+## Data
+- This application has data from the baseballr package. Baseballr is a package written for R
+focused on baseball analytics and has data collected from other baseball databses such as FanGraphs,
+Baseball-Reference, and baseballsavant.
+
+## Reference
+- [Baseballr packages github](https://github.com/billpetti/baseballr/tree/development_branch)
+- [Logan Webb Stats](https://baseballsavant.mlb.com/savant-player/logan-webb-657277?stats=statcast-r-pitching-mlb)
+- [Logan Webb Bio](https://en.wikipedia.org/wiki/Logan_Webb#:~:text=of%20his%20pitches.-,Personal%20life,Sharidan%20Morales%20in%20Roseville%2C%20California.)
+
