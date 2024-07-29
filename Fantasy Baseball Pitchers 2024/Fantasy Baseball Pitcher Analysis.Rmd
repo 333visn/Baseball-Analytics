@@ -1,0 +1,169 @@
+---
+title: "Fantasy Baseball Pitcher Analysis"
+author: "Nikhil Sivakumar"
+date: "2024-07-25"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+When playing fantasy baseball, people talk about how the ranking next to a pitcher is not always accurate and how it is not a good representation for how good a pitcher is. So, I'm trying to find an ideal way to rank pitchers in fantasy baseball, using the current 2024 season. Note that this analysis is for head-to-head leagues and not rotisserie leagues.
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(rvest)
+```
+
+First, I web scrapped the rankings from CBS Sports.
+
+```{r include=FALSE}
+# Yearly Statistics
+prop1_url <- "https://www.cbssports.com/fantasy/baseball/stats/SP/2024/ytd/stats/"
+html <- read_html(prop1_url)
+owners0 <- html_nodes(html, ".TableBase-bodyTd , .TableBase-headTh .inner-value")
+html_text(owners0,trim=TRUE)
+list <- html_text(owners0,trim=TRUE)
+list1 <- matrix(list, nrow = 100, byrow = TRUE)
+df1 <- as.data.frame(list1)
+```
+
+Here is what the current data frame looks like:
+```{r, warning=FALSE}
+head(df1)
+```
+
+There are a lot of columns that need to be renamed and variables that need to be changed from qualitative to quantitative. Also, I am going to adjust the points so that it is scored from an ESPN fantasy league
+
+```{r, warning=FALSE}
+extract_full_name <- function(text) {
+  lines <- unlist(str_split(text, "\n"))
+  # Find the line that contains both a first name and a last name
+  full_name <- lines[grep(" ", lines)]
+  return(str_trim(full_name[5]))
+}
+df1$full_name <- sapply(df1$V1, extract_full_name)
+
+yearlystats <- df1 %>%
+  mutate(`V1` = `full_name`) %>%
+  rename("Player" = V1, "FPTS" = V2, "FPPG" = V3,	"W" = V4, "L" = V5,	"ERA" = V6,
+         "GP" = V7,	"GS" = V8,	"QS" = V9,	"CG" = V10,	"IP" = V11,	"H" = V12,	
+         "HR" = V13,	"BB" = V14,	"SO" = V15,	"AVG" = V16,	"WHIP" = V17,	"SV" = V18,
+         "BS" = V19,	"SHO" = V20, "HLD" = V21, "GB%" = V22, "SO9" = V23, "BB9" = V24) %>%
+  mutate("W" = as.double(W), "L" = as.double(L), "QS" = as.double(QS), 
+         "SO9" = as.double(`SO9`), "BB9" = as.double(`BB9`), "GS" = as.integer(GS)) %>%
+  mutate("W" = if_else(condition = is.na(W), true = 0, false = W)) %>%
+  mutate("L" = if_else(condition = is.na(L), true = 0, false = L)) %>%
+  mutate("QS" = if_else(condition = is.na(QS), true = 0, false = QS)) %>%
+  mutate("FPTS" = as.double(FPTS), "ERA" = as.double(ERA), "SO" = as.double(SO)) %>%
+  mutate("IP" = (10*(as.double(IP)) - 7*(round(as.double(IP))))/3) %>%
+  mutate("FPTS.ESPN" =  round(FPTS - W*7 + W*2 + L*5 - L*2 - QS*3 - (ERA * IP / 9) + SO*0.5)) %>%
+  mutate("FPPG.ESPN" =  round(FPTS.ESPN / as.double(GP), 1)) %>%
+  mutate("KW" = round(as.double(`SO9`)/as.double(WHIP), 2)) %>%
+  select(Player, FPTS.ESPN, FPPG.ESPN, KW, matches("."), -full_name) %>%
+  filter(GS > 7)
+head(yearlystats)
+```
+Here, we have the adjusted points and adjusted points per game, which is supposed to score to an ESPN league settings (Only difference is that Hit by Pitches being scored as -1 was not removed). Based on the data as of 7/25/2024, the top 6 pitchers according to CBS rankings are Tarik Skubal, Seth Lugo, Logan Gilbert, Zack Wheeler, Corbin Burnes, and Aaron Nola. CBS scoring is different in many ways compared to ESPN. For example, wins and losses are more important. A pitcher can receive 7 points for a win and lose 5 for a loss, where as ESPN scores wins as +2 and losses as -2. Plus, quality starts are rewarded in CBS scoring as +3, while ESPN scoring does not reward pitchers for quality starts. Those are only a few differences between the two sites which can impact fantasy scoring a lot. This analysis chooses ESPN scoring for the analysis, but some of the ideas can also be applied for CBS scoring.
+
+```{r}
+head(yearlystats %>%
+  arrange(desc(FPTS.ESPN)), 15)
+```
+Here are the standings for ESPN standard league scoring. The two pitchers to note here is Seth Lugo and Logan Gilbert. Back in the CBS Scoring, Lugo is ahead of Gilbert in points and if you notice the column `FPPG` (fantasy points per game), Lugo has a higher average than Gilbert for CBS, but it's the opposite for ESPN. This shows that there are differences in scoring between the two sites that changes the value of pitchers. For the purposes of this code, we are looking at ESPN scoring more. One thing to note is the averages vs the points itself. Some pitchers have higher scores and lower averages than others. This might be due to more starts, or an injury, or the player was called up mid-season (aka Paul Skenes). So now the question becomes what is more valuable for a pitcher, the total points or the average? I think that there should be a mix of both, but favored to the average points per start. Pitcher starts in most standard ESPN leagues are capped to a certain amount, so it is important to get the most out of each pitcher start.
+
+Furthermore, I filtered the number of games started to 7 to remove relief pitchers (some of them "start" a match and then is followed by a bulk pitcher who plays majority of the game) and to remove players who made brief stints and do not have a big enough sample size worthy of inclusion (e.g Shane Bieber had two starts and averaged around 25 across those two starts). Here are the top pitchers based on averages:
+
+```{r}
+head(yearlystats %>%
+  arrange(desc(FPPG.ESPN)), 15)
+```
+Here, Pirates ace Paul Skenes is leading the averages with 19.2 FPPG. He got called up mid-season, so he as of now is only at 12 starts, while Tarik Skubal who is second in FPPG has 20. Another pitcher, Taj Bradley, is 10th in average despite having significantly less points because he started the season on the injured list and therefore also only has 13 games started. However, there is a certain point where less starts should not take away anything from the pitchers. Both Skenes and Bradley have double digit starts with these numbers and averages, so fantasy managers can be justified in preferring those guys over others who have more points but lower averages.
+
+But there is more to scoring a pitcher than points and raw averages. The average pitcher start is about 5 or 6 innings and ESPN rewards 1 point for every 0.1 inning (so 3 points per 1 inning), but pitchers also get scored on strikeouts (+ 1 per strikeout) with deductions for any offensive production (-1 for walks allowed, hits allowed, hit by pitches, with -2 for every earned run conceded). I think that the best pitchers in fantasy are the ones that have the best strikeout numbers while maintaining the lowest base runners. There is a column named `KW`. `KW` is the ratio between a pitchers K/9 (Strikeout per 9 innings) and WHIP (Walk and Hits per Innings Pitched). The stat was calculated by dividing K/9 over WHIP. Here are the top pitchers for `KW`:
+
+```{r}
+head(yearlystats %>%
+  arrange(desc(KW)), 15)
+```
+7 of the top 10 pitchers in `KW` are in the top 10 for FPPG, the other three pitchers (Crochet, Cease, and Gray) are in the top 15 for FPPG. While people can look at WHIP alone because that can be a indication of who is good for pitchers, `KW` is arguably better for fantasy purposes because strikeouts play a big role for scoring pitchers, so getting a pitcher who strikes batters out a lot, but allows some more base-runners is not the worst way to go.
+
+Garrett Crochet is likely going to be an exception for this analysis and the rest of the season. The White Sox announced the Crochet is going to be on a pitch count as he has exceeded his innings pitched in a season and if they trade him, his suitor will also value keeping him healthy and sharp come the playoffs. His last two starts had Crochet depart after 2 innings then 4 innings which brought down his average. Looking at fantasy points per innings pitched is not a bad way to go for future seasons, but while the cap in most standard leagues is pitcher starts vs innings pitched, we have to keep in mind Crochet is almost guaranteed to not put up the same fantasy points as he did in the first half of the season.
+
+We now should probably check outlier performances. There is an .R file `Fantasy Baseball Pitching Outliers` that takes the game logs of the top scoring starting pitchers and removes any outlier performances for better or worse. The data was extracted from Fox Sports and each game log does not have the decision for pitchers, so we have to temporarily remove points from wins and losses. While this does change the pitcher scores and averages, it will not drastically change the landscape of pitcher scoring and value for a pitcher should be mostly the same when comparing them to all the other pitchers.
+
+```{r}
+head(yearlystats %>%
+  mutate(FPTS.ESPN = FPTS.ESPN - 2*W + 2*L) %>%
+  mutate(FPPG.ESPN = round(FPTS.ESPN / as.double(GP), 1)), 15)
+```
+
+Now, let's load the csv file `outlierstats.csv`. To view the code for how I compiled those statistics, check there is an .R file called `Fantasy Baseball Pitching Outliers` in the folder. For these next statistics, we are using just the top 100 pitchers.
+
+```{r include=FALSE}
+outlierstats <- read_csv("outlierstats.csv") %>%
+  select(-`...1`) %>%
+  mutate("DiffPTS" = `FPTS.ESPN` - `FPTS.ESPN.adj`)
+```
+
+All statistics again were compiled as of 7/25. Let's see who is impacted the most by outlier performances for better or for worse. These are the 15 pitchers who benefit the most from removing outlier performances.
+```{r}
+head(outlierstats %>%
+  arrange(DiffPTS), 15)
+```
+The last 3 pitchers (Skubal, Lugo, Burnes) have a `DiffPTS` of 0, meaning that they have not had any outlier performances for better or worse. They have been relatively consistent all season. For the other 12 pitchers, they have all have had at least one performance (likely just one) that have been so far off their season totals and averages that they have been considered outliers. There are some high profile pitchers, such as Chris Sale, Taj Bradley, and Zack Wheeler who fit have had these outlier performances. If you exclude them, their current averages (16.68, 15.29, 15.3) jump up to 18.17, 17.77, and 15.35 points per start. For Sale and Bradley, their average points per start jumps up by a point by simply taking out an outlier start. In real life and fantasy, it is harder to simply exclude these blowup starts, but in the grand scheme of an entire season full of 20+ starts, it is just one start that can be forgiven by performing at a higher level the rest of the season. 
+
+Likewise, let's see which pitchers have had such outstanding starts, they were considered outliers.
+```{r}
+head(outlierstats %>%
+  arrange(desc(DiffPTS)), 5)
+```
+Only four pitchers have had outlier performances that were good performances (Skubal has 0, so he's been consistent all season). These four pitchers have had single game performances so good that they have been considered outliers, due to the fact they have been nowhere close to their numbers all season. 
+
+Let's see the grand scheme of fantasy pitchers, how they stack up in terms of average if outlier performances were excluded.
+```{r}
+# Sorted by stats with outliers
+head(outlierstats %>%
+  arrange(desc(FPPG.ESPN)) %>%
+    select(Player, `FPPG.ESPN`), 15)
+
+# Sorted by stats without outliers
+head(outlierstats %>%
+  arrange(desc(FPPG.ESPN.adj)) %>%
+  select(Player, `FPPG.ESPN.adj`), 15)
+```
+
+Again, keep in mind wins and losses have been removed temporarily for these numbers, these calculations are based solely on the pitcher skills. Taj Bradley had the jump from 8th highest average to 3rd highest average, indicating that he had a blowup start (June 1st @ Orioles, conceded 9 ER in 3.1 IP, -17 points not including the loss) that has been ruled an outlier (again, more info on the outliers calculated can be found in the Outliers .R file). None of the other pitchers were really impacted by the adjusted stats, despite guys like Wheeler and Sale also having better stats with outlier stats removed. 
+
+Note that I did create a stat called `KW.adj`, which recalculates the K/9 / WHIP stats. Outlier performances often blow up a pitcher's WHIP and sometimes will stall their K/9 stats too. Here is the pitchers ranked by `KW` vs `KW.adj`:
+
+```{r}
+# Sorted by KW with outliers
+head(outlierstats %>%
+  arrange(desc(KW.adj)) %>%
+            select(Player, KW), 15)
+
+# Sorted by KW without outliers
+head(outlierstats %>%
+  arrange(desc(KW.adj)) %>%
+            select(Player, KW.adj), 15)
+```
+
+Similar to FPPG, Sale, Bradley, and Wheeler (to a lesser degree) are the three pitchers impacted by the change, although it is not enough to change their rank. Both Sale and Bradley improved their K/9 / WHIP by over 1 with outliers removed, indicating that those two pitchers have been hurt the most by their outlier performance and that their numbers are being held back by that singular performance (For Sale, June 1st vs Athletics, 4 IP, 8 ER, -10 fantasy points).
+
+Zack Wheeler had a few blowup starts, but his start on June 16th @ Orioles (4.1 IP, 8 ER, -10 fantasy points) seems to be the one that has been ruled far enough as the outlier. His numbers do not drastically change as much as Bradley or Sale though, which might actually highlight more of an inconsistency because Wheeler would have had to have other sub par starts to make the outlier start not that impactful on the season numbers.
+
+So now that we have average fantasy points per game, a reasonable amount of starts for a pitcher to qualify, outlier starts removed, how should starting pitchers be ranked in fantasy baseball. With the `KW` factor, it is important  that the top pitchers seem to have a high amount of strikeouts and a lower WHIP. I do not emphasize innings pitched as much, as the top pitchers in baseball will get around 5, 6 of 7 innings per start. The final standings could be a factor of fantasy points per game adjusted and `KW` adjusted which leaves with this:
+
+```{r}
+head(outlierstats %>%
+  mutate("ranking_score" = FPPG.ESPN.adj * KW.adj) %>% 
+  select(Player, ranking_score) %>%
+  arrange(desc(ranking_score)), 15)
+```
+Again, keep in mind that external factors make these rankings not completely accurate projection for the rest of the season. This was made before the trade deadline, and certain pitchers (Garrett Crochet) is on a pitch count, hindering his fantasy value the rest of the season, but if we look at the season up to now, these have been the best pitchers and if one were to exclude the external factors mentioned above, these are the top 15 pitchers in fantasy baseball.
+
+The final ranking shows Paul Skenes as the top pitcher in fantasy baseball. While is is not number 1 in points, this is because he was called up mid-season, but he has been the best pitcher in fantasy baseball since he arrived. He has the highest average points and he has the highest `KW` factor (he strikes out a lot of batters while not allowing many base runners), which naturally leads him to having the highest ranking score and with this analysis being named the top pitcher in fantasy baseball at this time.
