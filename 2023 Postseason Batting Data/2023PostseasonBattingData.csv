@@ -1,0 +1,149 @@
+"","Name","Team","G","AB","H","BA","PA","HR","SO","BB","OBP"
+"1","Corey Seager","Texas",17,66,21,0.318,82,6,12,15,0.451
+"2","Marcus Semien","Texas",17,76,17,0.224,82,2,12,6,0.281
+"3","Ketel Marte","Arizona",17,73,24,0.329,79,2,18,6,0.38
+"4","Corbin Carroll","Arizona",17,66,18,0.273,78,2,13,9,0.364
+"5","Christian Walker","Arizona",17,60,13,0.217,75,1,19,13,0.36
+"6","Evan Carter","Texas",17,60,18,0.3,72,1,19,10,0.417
+"7","Nathaniel Lowe","Texas",17,66,14,0.212,72,3,22,6,0.278
+"8","Jonah Heim","Texas",17,66,14,0.212,71,3,10,5,0.268
+"9","Josh Jung","Texas",17,65,20,0.308,70,3,19,3,0.329
+"10","Gabriel Moreno","Arizona",17,63,15,0.238,70,4,20,6,0.304
+"11","Lourdes Gurriel Jr.","Arizona",17,66,18,0.273,70,3,13,2,0.29
+"12","Adolis García","Texas",15,62,20,0.323,68,8,18,3,0.382
+"13","Leody Taveras","Texas",17,57,10,0.175,67,1,13,10,0.299
+"14","Tommy Pham","Arizona",16,61,17,0.279,64,3,19,2,0.297
+"15","Geraldo Perdomo","Arizona",17,51,14,0.275,63,2,16,7,0.362
+"16","Mitch Garver","Texas",14,53,12,0.226,60,3,12,6,0.317
+"17","Alek Thomas","Arizona",17,54,12,0.222,59,4,13,4,0.271
+"18","Kyle Schwarber","Philadelphia",13,47,12,0.255,57,5,17,9,0.386
+"19","Bryce Harper","Philadelphia",13,42,12,0.286,55,5,11,13,0.455
+"20","Trea Turner","Philadelphia",13,49,17,0.347,55,3,8,5,0.4
+"21","Evan Longoria","Arizona",16,48,8,0.167,54,0,21,3,0.226
+"22","Alec Bohm","Philadelphia",13,46,11,0.239,53,1,9,6,0.34
+"23","Nick Castellanos","Philadelphia",13,47,10,0.213,52,5,14,4,0.269
+"24","J.T. Realmuto","Philadelphia",13,49,13,0.265,52,3,13,1,0.294
+"25","Jose Altuve","Houston",11,49,14,0.286,51,4,4,2,0.314
+"26","Bryson Stott","Philadelphia",13,46,11,0.239,51,1,14,4,0.294
+"27","Yordan Alvarez","Houston",11,43,20,0.465,49,6,14,4,0.51
+"28","Alex Bregman","Houston",11,41,9,0.22,49,4,10,7,0.347
+"29","José Abreu","Houston",11,44,13,0.296,48,4,8,4,0.354
+"30","Kyle Tucker","Houston",11,40,6,0.15,48,0,10,8,0.292
+"31","Johan Rojas","Philadelphia",13,43,4,0.093,45,0,15,1,0.114
+"32","Brandon Marsh","Philadelphia",12,38,13,0.342,42,1,15,4,0.405
+"33","Jeremy Peña","Houston",11,40,8,0.2,42,0,6,1,0.238
+"34","Martín Maldonado","Houston",11,28,4,0.143,34,0,11,4,0.273
+"35","Michael Brantley","Houston",8,28,5,0.179,32,1,6,4,0.281
+"36","Chas McCormick","Houston",8,28,8,0.286,31,1,5,2,0.355
+"37","Royce Lewis","Minnesota",6,22,5,0.227,26,4,8,4,0.346
+"38","Jorge Polanco","Minnesota",6,21,4,0.191,26,1,8,4,0.32
+"39","Mauricio Dubón","Houston",6,25,8,0.32,26,0,4,0,0.308
+"40","Carlos Correa","Minnesota",6,22,9,0.409,24,0,5,1,0.458
+"41","Max Kepler","Minnesota",6,23,5,0.217,24,0,10,1,0.25
+"42","Ryan Jeffers","Minnesota",6,19,2,0.105,23,0,8,2,0.261
+"43","Edouard Julien","Minnesota",6,17,5,0.294,22,1,8,5,0.455
+"44","Robbie Grossman","Texas",6,19,2,0.105,20,0,10,1,0.15
+"45","Emmanuel Rivera","Arizona",7,17,4,0.235,18,0,2,1,0.278
+"46","Austin Riley","Atlanta",4,17,6,0.353,17,2,6,0,0.353
+"47","Ozzie Albies","Atlanta",4,15,4,0.267,17,0,3,2,0.353
+"48","Matt Olson","Atlanta",4,16,4,0.25,17,0,1,1,0.294
+"49","Ronald Acuña Jr.","Atlanta",4,14,2,0.143,17,0,2,2,0.294
+"50","Willi Castro","Minnesota",6,15,3,0.2,17,0,6,2,0.294
+"51","Marcell Ozuna","Atlanta",4,13,2,0.154,15,0,4,2,0.267
+"52","Orlando Arcia","Atlanta",4,13,2,0.154,14,0,4,1,0.214
+"53","Michael A. Taylor","Minnesota",5,13,2,0.154,14,0,5,0,0.214
+"54","Yainer Diaz","Houston",7,14,1,0.071,14,0,5,0,0.071
+"55","Gunnar Henderson","Baltimore",3,12,6,0.5,13,1,4,1,0.539
+"56","Anthony Santander","Baltimore",3,11,3,0.273,13,1,0,2,0.385
+"57","Austin Hays","Baltimore",3,11,3,0.273,13,0,3,2,0.385
+"58","Ryan Mountcastle","Baltimore",3,11,2,0.182,13,0,4,1,0.231
+"59","Donovan Solano","Minnesota",5,10,1,0.1,13,0,4,3,0.308
+"60","Adley Rutschman","Baltimore",3,12,1,0.083,13,0,2,1,0.154
+"61","Michael Harris II","Atlanta",4,13,0,0,13,0,3,0,0
+"62","Will Smith","Los Angeles",3,12,5,0.417,12,0,1,0,0.417
+"63","J.D. Martinez","Los Angeles",3,10,2,0.2,12,1,4,2,0.333
+"64","Max Muncy","Los Angeles",3,11,2,0.182,12,0,4,1,0.25
+"65","Freddie Freeman","Los Angeles",3,10,1,0.1,12,0,2,2,0.25
+"66","Matt Wallner","Minnesota",4,8,0,0,12,0,5,3,0.333
+"67","Mookie Betts","Los Angeles",3,11,0,0,12,0,2,1,0.083
+"68","Cedric Mullins","Baltimore",3,12,0,0,12,0,3,0,0
+"69","Pavin Smith","Arizona",6,10,3,0.3,11,0,3,1,0.364
+"70","Alex Kirilloff","Minnesota",5,9,0,0,11,0,4,2,0.182
+"71","Christian Yelich","Milwaukee",2,8,4,0.5,10,0,1,2,0.6
+"72","Aaron Hicks","Baltimore",3,8,2,0.25,10,1,1,2,0.4
+"73","Travis Jankowski","Texas",4,9,3,0.333,10,0,0,1,0.4
+"74","William Contreras","Milwaukee",2,9,3,0.333,10,0,3,1,0.4
+"75","Cristian Pache","Philadelphia",4,7,1,0.143,10,0,3,3,0.4
+"76","Mark Canha","Milwaukee",2,8,3,0.375,9,0,2,0,0.444
+"77","Carlos Santana","Milwaukee",2,7,2,0.286,9,0,2,2,0.444
+"78","Jordan Westburg","Baltimore",3,9,2,0.222,9,0,4,0,0.222
+"79","Sal Frelick","Milwaukee",2,8,2,0.25,9,0,3,0,0.222
+"80","George Springer","Toronto",2,9,2,0.222,9,0,0,0,0.222
+"81","Willy Adames","Milwaukee",2,7,4,0.571,8,0,2,1,0.625
+"82","Josh Bell","Miami",2,8,4,0.5,8,0,1,0,0.5
+"83","Bo Bichette","Toronto",2,8,4,0.5,8,0,2,0,0.5
+"84","Randy Arozarena","Tampa Bay",2,8,3,0.375,8,0,2,0,0.375
+"85","Isaac Paredes","Tampa Bay",2,8,3,0.375,8,0,2,0,0.375
+"86","Alejandro Kirk","Toronto",2,6,2,0.333,8,0,1,1,0.5
+"87","Travis d'Arnaud","Atlanta",3,7,1,0.143,8,1,2,1,0.25
+"88","Enrique Hernández","Los Angeles",3,8,3,0.375,8,0,0,0,0.375
+"89","Josh Donaldson","Milwaukee",2,7,2,0.286,8,0,0,0,0.375
+"90","Tyrone Taylor","Milwaukee",2,8,1,0.125,8,1,2,0,0.125
+"91","Vladimir Guerrero Jr.","Toronto",2,7,1,0.143,8,0,0,1,0.25
+"92","Matt Chapman","Toronto",2,7,1,0.143,8,0,3,1,0.25
+"93","Luis Arráez","Miami",2,8,1,0.125,8,0,0,0,0.125
+"94","Cavan Biggio","Toronto",2,8,1,0.125,8,0,3,0,0.125
+"95","Yandy Díaz","Tampa Bay",2,8,1,0.125,8,0,1,0,0.125
+"96","Harold Ramírez","Tampa Bay",2,8,1,0.125,8,0,2,0,0.125
+"97","Jorge Soler","Miami",2,8,1,0.125,8,0,5,0,0.125
+"98","Brandon Belt","Toronto",2,8,0,0,8,0,5,0,0
+"99","Jazz Chisholm Jr.","Miami",2,8,0,0,8,0,4,0,0
+"100","Curtis Mead","Tampa Bay",2,6,2,0.333,7,0,2,0,0.333
+"101","Jake Burger","Miami",2,7,2,0.286,7,0,0,0,0.286
+"102","Sean Murphy","Atlanta",2,7,2,0.286,7,0,2,0,0.286
+"103","Bryan De La Cruz","Miami",2,6,1,0.167,7,0,0,1,0.286
+"104","Chris Taylor","Los Angeles",3,6,1,0.167,7,0,2,1,0.286
+"105","Manuel Margot","Tampa Bay",2,6,1,0.167,7,0,2,0,0.167
+"106","Kevin Pillar","Atlanta",4,5,0,0,7,0,3,2,0.286
+"107","Eddie Rosario","Atlanta",4,7,1,0.143,7,0,3,0,0.143
+"108","Jason Heyward","Los Angeles",3,7,0,0,7,0,4,0,0
+"109","Kevin Kiermaier","Toronto",2,5,2,0.4,6,0,2,1,0.5
+"110","Jon Berti","Miami",2,5,1,0.2,6,0,3,0,0.333
+"111","Miguel Rojas","Los Angeles",3,6,2,0.333,6,0,0,0,0.333
+"112","Taylor Walls","Tampa Bay",2,6,2,0.333,6,0,1,0,0.333
+"113","David Peralta","Los Angeles",3,6,1,0.167,6,0,1,0,0.167
+"114","James Outman","Los Angeles",2,5,0,0,6,0,3,1,0.167
+"115","Daulton Varsho","Toronto",2,5,0,0,6,0,3,0,0
+"116","Jorge Mateo","Baltimore",2,5,4,0.8,5,0,1,0,0.8
+"117","Josh Lowe","Tampa Bay",2,4,1,0.25,5,0,0,1,0.4
+"118","Ryan O'Hearn","Baltimore",3,5,1,0.2,5,0,1,0,0.2
+"119","Jesús Sánchez","Miami",2,5,1,0.2,5,0,1,0,0.2
+"120","Brice Turang","Milwaukee",2,3,0,0,5,0,2,1,0.25
+"121","Adam Frazier","Baltimore",2,5,0,0,5,0,0,0,0
+"122","René Pinto","Tampa Bay",2,5,0,0,5,0,4,0,0
+"123","Kyle Farmer","Minnesota",2,4,1,0.25,4,1,2,0,0.25
+"124","José Herrera","Arizona",2,3,0,0,4,0,0,1,0.25
+"125","Kolten Wong","Los Angeles",3,3,0,0,4,0,0,1,0.25
+"126","Jake Cave","Philadelphia",3,3,1,0.333,3,0,1,0,0.333
+"127","Jose Siri","Tampa Bay",1,3,0,0,3,0,0,0,0
+"128","Santiago Espinal","Toronto",1,2,2,1,2,0,0,0,1
+"129","Ramón Urías","Baltimore",1,2,1,0.5,2,0,0,0,0.5
+"130","Jordan Lawlar","Arizona",2,1,0,0,2,0,0,1,0.5
+"131","Whit Merrifield","Toronto",1,1,0,0,2,0,0,1,0.5
+"132","Jon Singleton","Houston",2,1,0,0,2,0,1,1,0.5
+"133","Junior Caminero","Tampa Bay",2,2,0,0,2,0,1,0,0
+"134","Nick Fortes","Miami",1,2,0,0,2,0,1,0,0
+"135","Jace Peterson","Arizona",2,2,0,0,2,0,0,0,0
+"136","Jacob Stallings","Miami",1,2,0,0,2,0,0,0,0
+"137","Jesse Winker","Milwaukee",2,2,0,0,2,0,1,0,0
+"138","Xavier Edwards","Miami",1,1,1,1,1,0,0,0,1
+"139","Jonathan Aranda","Tampa Bay",1,1,0,0,1,0,1,0,0
+"140","Austin Barnes","Los Angeles",1,1,0,0,1,0,0,0,0
+"141","Byron Buxton","Minnesota",1,1,0,0,1,0,0,0,0
+"142","Vaughn Grissom","Atlanta",1,1,0,0,1,0,1,0,0
+"143","Yuli Gurriel","Miami",1,1,0,0,1,0,1,0,0
+"144","Garrett Hampson","Miami",1,1,0,0,1,0,0,0,0
+"145","Austin Hedges","Texas",1,1,0,0,1,0,1,0,0
+"146","Andruw Monasterio","Milwaukee",1,1,0,0,1,0,1,0,0
+"147","Edmundo Sosa","Philadelphia",1,1,0,0,1,0,0,0,0
+"148","Forrest Wall","Atlanta",1,1,0,0,1,0,0,0,0

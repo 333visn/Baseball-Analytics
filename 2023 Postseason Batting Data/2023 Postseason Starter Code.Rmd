@@ -1,0 +1,47 @@
+---
+title: "2023 Postseason Data Starter Code"
+date: "2025-05-09"
+output: html_document
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(baseballr)
+```
+
+```{r}
+pk_data23 <- mlb_schedule_postseason(
+  season = 2023,
+  game_type = NULL,
+  series_number = NULL,
+  sport_id = 1,
+  team_id = NULL
+) %>%
+  select(game_pk)
+pk_data23
+```
+
+```{r}
+pk_data23_post <- mlb_pbp(716367)
+```
+
+```{r, message=FALSE}
+for (i in 1:length(pk_data23$game_pk)){
+  pk_data23_post <- pk_data23_post %>%
+    full_join(mlb_pbp(pk_data23$game_pk[i]))
+}
+```
+
+```{r}
+pk_data23_post1 <- pk_data23_post %>%
+  select(game_pk, home_team, away_team, matchup.batter.fullName, matchup.pitcher.fullName, result.event, batting_team, fielding_team, atBatIndex) %>%
+  mutate("isHit" = case_when(result.event %in% c("Single", "Double", "Triple", "Home Run") ~ 1,
+  .default = 0)) %>%
+  filter(game_pk != 716367) %>%
+  distinct(game_pk, atBatIndex, .keep_all = TRUE)
+View(pk_data23_post1)
+```
+
+```{r}
+write.csv(pk_data23_post1, "MLB2023PostseasonPlaybyPlay.csv")
+```

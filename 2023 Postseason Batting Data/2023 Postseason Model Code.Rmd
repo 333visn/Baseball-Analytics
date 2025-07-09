@@ -1,0 +1,103 @@
+---
+title: "2023 Postseason Model"
+date: "2025-05-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(brms)
+library(lme4)
+library(ggplot2)
+```
+
+# Extracting Data from CSV
+```{r}
+data_model <- read.csv("MLB2023PostseasonPlaybyPlay.csv") %>%
+  mutate(player_id = as.factor(matchup.batter.fullName),
+         team_id = as.factor(batting_team), game_id = as.factor(game_pk))
+```
+
+# Preparing the Model
+```{r}
+options(brms.backend = "cmdstanr")
+
+model = brm(formula = isHit ~ 1 + (1 | game_id) + (1 | team_id:player_id),
+            family = bernoulli(link = "logit"), data = data_model,
+            prior = c(prior(normal(0, 100), class = "Intercept"),
+                      prior(exponential(1), class = "sd")),
+            chains = 4, iter = 2000, warmup = 1000, cores = 4, control = list
+        (adapt_delta = 0.95))
+```
+
+
+#Looking at Model Summary
+```{r}
+summary (model)
+```
+
+#Plot Player-Level Effects Analysis
+```{r}
+global_intercept = fixef (model) ["Intercept", "Estimate"]
+
+player_effects = ranef(model)$`team_id:player_id` [, , "Intercept"] %>%
+  as.data.frame() %%
+  rename (logit = Estimate, Q2.5 = Q2.5, Q97.5 = Q97.5) %>%
+  mutate(player = rownames(.), adj_logit = logit + global_intercept,
+         adj_low = Q2.5 + global_intercept, adj_high = Q97.5 + global_intercept,
+         prob = plogis (adj_logit), prob_low = plogis (adj_low), prob_high = plogis
+         (adj_high))
+
+top_bottom_players = player_effects %>%
+  arrange(desc(prob)) %>%
+  slice(c(1:10, (n() - 9):n()))
+
+ggplot(top_bottom_players, aes (x = reorder (player, prob), y = prob)) + geom_point
+(size = 2) +
+  geom_errorbar (aes (ymin = prob_low, ymax = prob_high), width = 0.2) +
+  coord_flip() +
+  labs(title = "Top and Bottom Player Batting Probabilities",
+       y = "Estimated Probability of Hit", x = "Player")
+```
+
+# Team-Level Random Effects Analysis
+```{r}
+team_effects = ranef(model)$team_id[, , "Intercept"] %>%
+  as.data.frame() %>%
+  rename(logit = Estimate, Q2.5 = Q2.5, Q97.5 = Q97.5) %>%
+  mutate(
+    team = rownames(.),
+    adj_logit = logit + global_intercept,
+    adj_low = Q2.5 + global_intercept,
+    adj_high = Q97.5 + global_intercept,
+    prob = plogis(adj_logit),
+    prob_low = plogis(adj_low),
+    prob_high = plogis(adj_high)
+  )
+    ggplot(team_effects, aes (x = reorder (team, prob), y = prob)) + geom_point() +
+      geom_errorbar(aes(ymin = prob_low, ymax = prob_high), width = 0.2) +
+      coord_flip() + labs (title = "Team-Level Batting Probabilities",
+                           y = "Estimated Probability of Hit", x = "Team")
+```
+
+# Model Comparison
+```{r}
+freq_model = glmer(isHit ~ 1 + (1 | game_id) + (1 | team_id) + (1 | team_id
+:player_id),
+                    data = data_model, family = binomial(link = "logit"))
+```
+
+# Model Summary
+```{r}
+summary(freq_model)
+```
+
+# Random Effects Analysis
+```{r}
+ranef(freq_model)$team_id
+head(ranef(freq_model)$'team_id:player_id', 6)
+```
