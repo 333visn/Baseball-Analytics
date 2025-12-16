@@ -39,14 +39,12 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  # ---- Games available for selected pitcher ----
   output$game_picker <- renderUI({
     req(input$pitcher)
     games <- df %>% filter(Pitcher == input$pitcher) %>% pull(GameDate) %>% unique()
     selectInput("game", "Game Date:", choices = sort(games))
   })
   
-  # ---- FILTERED DATA REACTIVE ----
   gameData <- reactive({
     req(input$pitcher, input$game)
     
@@ -61,7 +59,6 @@ server <- function(input, output, session) {
     g
   })
   
-  # ---- VELO PLOT ----
   output$veloPlot <- renderPlot({
     gameData() %>%
       ggplot(aes(pitch_in_outing, RelSpeed)) +
@@ -72,7 +69,6 @@ server <- function(input, output, session) {
            y = "Velocity (mph)")
   })
   
-  # ---- SPIN PLOT ----
   output$spinPlot <- renderPlot({
     req(gameData()$SpinRate)
     
@@ -85,7 +81,6 @@ server <- function(input, output, session) {
            y = "Spin Rate (rpm)")
   })
   
-  # ---- COMMAND PLOT (location variability) ----
   output$commandPlot <- renderPlot({
     gameData() %>%
       ggplot(aes(pitch_in_outing, loc_sd)) +
@@ -96,7 +91,6 @@ server <- function(input, output, session) {
            y = "Location Variability (SD)")
   })
   
-  # ---- RELEASE POINT DRIFT PLOT ----
   output$rpPlot <- renderPlot({
     gameData() %>%
       ggplot(aes(pitch_in_outing, rel_drift)) +
@@ -163,3 +157,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
