@@ -1,0 +1,81 @@
+---
+title: "Frontier League xwOBA Model"
+author: "Nikhil Sivakumar"
+date: "2025-08-07"
+output: html_document
+---
+
+```{r, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(feather)
+library(caret)
+```
+
+```{r}
+df <- read.csv("fl_data_25.csv")
+head(data)
+```
+
+```{r}
+data <- df %>%
+  filter(PitchCall == "InPlay",
+         TaggedHitType != 'Bunt',
+         complete.cases(PlayResult, ExitSpeed, Angle)) %>%
+  mutate(HitCheck = ifelse(PlayResult %in% c("Single", "Double", "Triple", "HomeRun"), 1, 0),
+         woba = case_when(PlayResult %in% c("Out", "Sacrifice", "FieldersChoice", "Error") ~ 0,
+                          PlayResult == "Single" ~ 0.883,
+                          PlayResult == "Double" ~ 1.244,
+                          PlayResult == "Triple" ~ 1.569,
+                          PlayResult == "HomeRun" ~ 2.004)) %>%
+  select(Batter, PlayResult, ExitSpeed, Angle, PlayResult, woba) %>%
+  filter(PlayResult != "Undefined")
+```
+
+```{r}
+head(data)
+```
+# Training and Testing Data for KNN
+```{r}
+index <- sample(1:nrow(data), 0.05 * nrow(data))
+train <- data[index,]
+test <- data[-index,]
+```
+
+```{r}
+fit.knn <- train(woba~ExitSpeed+Angle, data=train, method="knn")
+```
+
+```{r}
+print(fit.knn)
+```
+```{r}
+plot(fit.knn)
+```
+```{r}
+data$xwOBA <- predict(fit.knn, newdata = data)
+```
+
+```{r}
+data2 <- data %>%
+  group_by(Batter) %>%
+  summarise(woba = round(mean(woba), 3),
+            xwOBA = round(mean(xwOBA), 3),
+            Difference = xwOBA - woba,
+            BIP = n()) %>%
+  filter(BIP > 0)
+```
+
+# Test Data for Windy City ThunderBolts 2025
+```{r}
+WCTBatters = c('Gibson, Josh', 'Phelts, Cameron', 'Greer, Jalen', 'Broussard, Garrett', 'Dunlap, James', 'Thoroman, Grant', 'Sandle, Michael',
+           'Serratos, Oscar', 'Kuzemka, Christian', 'Harbison, Kyle', 'Roberts, Ethan', 'Corliss, Craig', 'Pena, Carlos', 'Ruiz, Daryl',
+           'Beadle, Zach')
+```
+
+```{r}
+View(data2 %>%
+       filter(Batter %in% WCTBatters))
+```
+
+
+
