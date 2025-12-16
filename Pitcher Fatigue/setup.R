@@ -35,7 +35,6 @@ df <- df %>%
   ) %>%
   ungroup()
 
-# ---- RELEASE POINT DRIFT ----
 df <- df %>%
   group_by(Pitcher, GameDate) %>%
   mutate(
@@ -72,7 +71,6 @@ df <- df %>%
   ) %>%
   ungroup()
 
-# ---- ROLLING METRICS ----
 df <- df %>%
   group_by(Pitcher, GameDate) %>%
   mutate(
@@ -82,7 +80,6 @@ df <- df %>%
   ) %>%
   ungroup()
 
-# ---- COMMAND METRIC: LOCATION VARIABILITY ----
 # Rolling SD of distance from cluster center
 df <- df %>%
   group_by(Pitcher, GameDate) %>%
@@ -101,7 +98,6 @@ df <- df %>%
   ) %>%
   ungroup()
 
-# ---- FATIGUE INDEX ----
 # Normalize each rolling metric
 df <- df %>%
   mutate(
@@ -112,6 +108,6 @@ df <- df %>%
     fatigue_index = z_velo + z_zone + z_drift
   )
 
-# ---- For dropdown menus ----
 pitcher_list <- sort(unique(df$Pitcher))
+
 pitch_class_list <- c("All", sort(unique(df$PitchClass)))
