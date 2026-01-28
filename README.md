@@ -18,9 +18,23 @@ Note: A few projects do not have the datasets attatched to it because Frontier L
 - A dedicated module evaluating the "Cal Raleigh effect," looking at catcher framing and defensive contributions across the league.
 - Interactive scatter plots comparing Mariners pitchers to the rest of the MLB in terms of Runs Prevented Above Average and total WAR.
 
-4. 2023 Postseason: Bayesian Batting Model (Spring 2025)
+4. Fantasy Baseball Pitchers: Outlier Analysis (Summer 2024)
+- Tools: R, rvest, tidyverse, R Markdown
+- A data engineering project focused on identifying consistent pitching performance by scraping real-time game logs and filtering for statistical outliers.
+- Built custom scrapers for CBS Sports and Fox Sports to aggregate season stats and individual game logs.
+- Developed robust logic to handle player name mismatches and dynamic URL structures for automated data collection.
+- Applied Z-score analysis to remove extreme variance games, recalculating "Adjusted" Fantasy Points (FPPG) and Strikeout-to-Walk ratios (KW.adj).
+
+5. 2023 Postseason: Bayesian Batting Model (Spring 2025)
 - Tools: R, brms (Stan), lme4, ggplot2
 - An advanced statistical study using Bayesian Hierarchical Modeling to analyze 2023 postseason play-by-play data.
 - A Bernoulli GLMM (isHit ~ 1 + (1|game_id) + (1|team_id: player_id)) designed to account for the high variance of small postseason sample sizes.
 - Used brms to derive posterior probabilities for batting success, allowing for a more stable estimation of "True Talent" compared to raw batting averages.
 - Features a Top and Bottom Player Batting Probabilities plot with 95% credible intervals, providing a clear visual of which players significantly over/underperformed during the October run.
+
+6. Synthetic Pitcher-Batter Matchup Predictor (Summer 2025)
+- Tools: Python, Scikit-Learn, Pandas, NumPy
+- A predictive modeling project using Frontier League data from the 2025 season to simulate and predict the outcomes of hypothetical at-bats.
+- Utilizes a RandomForestClassifier to determine the result of an at-bat (e.g., Strikeout, Single, Walk) based on a synthetic input of pitcher and batter historical profiles.
+- Features a realistic game engine that accounts for strike zone boundaries, pitcher location tendencies, and batter swing-zone probabilities.
+- Implements stadium-based hit classification (calculating fence distance vs. launch angle) and estimates xwOBA and xDamage for all simulated outcomes.
