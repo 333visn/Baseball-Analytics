@@ -38,3 +38,20 @@ Note: A few projects do not have the datasets attatched to it because Frontier L
 - Utilizes a RandomForestClassifier to determine the result of an at-bat (e.g., Strikeout, Single, Walk) based on a synthetic input of pitcher and batter historical profiles.
 - Features a realistic game engine that accounts for strike zone boundaries, pitcher location tendencies, and batter swing-zone probabilities.
 - Implements stadium-based hit classification (calculating fence distance vs. launch angle) and estimates xwOBA and xDamage for all simulated outcomes.
+
+7. Frontier League xwOBA Model (Fall 2025)
+- Tools: R, Caret, Tidyverse
+- A K-Nearest Neighbors (KNN) model built to calculate Expected Weighted On-Base Average (xwOBA) specifically for the Frontier League environment.
+- Uses launch angle and exit velocity to determine the probability of hit outcomes, mapping them to weighted values.
+- Provides a more accurate evaluation of hitter performance by removing defense and park factors from the equation.
+
+8. Frontier League Stuff+ Model (Fall 2025)
+- Tools: Python, Jupyter Notebook, Pandas, Scikit-Learn
+- Inspired by professional pitching metrics, this project develops a custom "Stuff+" model for the Frontier League.
+- Quantifies the physical characteristics of a pitch (velocity, vertical/horizontal break, and release point) independent of the outcome or location.
+- To identify high-upside arms by evaluating pitch quality relative to league-average movement profiles for each pitch type.
+
+9. Swing Decision Model (Fall 2025)
+- Tools: Python, PyTorch (Neural Networks)
+- An exploration into plate discipline using deep learning.
+- To build a neural network that evaluates "Swing vs. Take" decisions based on pitch location, count, and pitcher tendencies.
